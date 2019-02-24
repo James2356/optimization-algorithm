@@ -15,11 +15,22 @@ from funcfactory_singleton import funcfactory_singleton
 # fitness 适应度值 PSO算法中规定：适应度越大，当前粒子位置越逼近最优解 
 # 所以目标函数值要取反以求其最大值，即得最优解
 ##
-class PSO:
+class LWDPSO:
     def getweight(self):
         # 惯性权重
         weight = 0.9
         return weight
+
+    def getLWDweight(self,w_min,w_max,i):
+        # LWD权重变化
+        # weight = 
+        itermax = self.getmaxgen()
+        w = w_max - i/itermax*(w_max-w_min)
+        # if(w>w_max):
+        #     w = w_max
+        # if(w<w_min):
+        #     w = w_min
+        return w
 
     def getlearningrate(self):
         # 分别是粒子的个体和社会的学习因子，也称为加速常数
@@ -91,38 +102,42 @@ class PSO:
         rangepop = self.getrangepop()
         rangespeed = self.getrangespeed()
 
+        w_max = 0.9
+        w_min = 0.4
+
         pop,v,fitness = self.initpopvfit(sizepop)
         gbestpop,gbestfitness,pbestpop,pbestfitness = self.getinitbest(fitness,pop)
         
         # 初始化结果
         result = np.zeros(maxgen)
         for i in range(maxgen):
-                t=0.5
-                #速度更新
-                for j in range(sizepop):
-                    v[j] =w*v[j]+lr[0]*np.random.rand()*(pbestpop[j]-pop[j])+lr[1]*np.random.rand()*(gbestpop-pop[j])
-                v[v<rangespeed[0]] = rangespeed[0]
-                v[v>rangespeed[1]] = rangespeed[1]
+            t=0.5
+            #速度更新
+            for j in range(sizepop):
+                v[j] =w*v[j]+lr[0]*np.random.rand()*(pbestpop[j]-pop[j])+lr[1]*np.random.rand()*(gbestpop-pop[j])
+            v[v<rangespeed[0]] = rangespeed[0]
+            v[v>rangespeed[1]] = rangespeed[1]
 
-                #粒子位置更新
-                for j in range(sizepop):
-                    #pop[j] += 0.5*v[j]
-                    pop[j] = t*(0.5*v[j])+(1-t)*pop[j]
-                pop[pop<rangepop[0]] = rangepop[0]
-                pop[pop>rangepop[1]] = rangepop[1]
+            #粒子位置更新
+            for j in range(sizepop):
+                #pop[j] += 0.5*v[j]
+                pop[j] = t*(0.5*v[j])+(1-t)*pop[j]
+            pop[pop<rangepop[0]] = rangepop[0]
+            pop[pop>rangepop[1]] = rangepop[1]
 
-                #适应度更新
-                for j in range(sizepop):
-                    fitness[j] = self.func(pop[j])
+            #适应度更新
+            for j in range(sizepop):
+                fitness[j] = self.func(pop[j])
 
-                for j in range(sizepop):
-                    if fitness[j] > pbestfitness[j]:
-                        pbestfitness[j] = fitness[j]
-                        pbestpop[j] = pop[j].copy()
+            for j in range(sizepop):
+                if fitness[j] > pbestfitness[j]:
+                    pbestfitness[j] = fitness[j]
+                    pbestpop[j] = pop[j].copy()
 
-                if pbestfitness.max() > gbestfitness :
-                    gbestfitness = pbestfitness.max()
-                    gbestpop = pop[pbestfitness.argmax()].copy()
+            if pbestfitness.max() > gbestfitness :
+                gbestfitness = pbestfitness.max()
+                gbestpop = pop[pbestfitness.argmax()].copy()
 
-                result[i] = gbestfitness
+            result[i] = gbestfitness
+            w = self.getLWDweight(w_min,w_max,i+1)
         return result,gbestpop,pbestfitness

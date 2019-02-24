@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from PSO import PSO
+from LWDPSO import LWDPSO
 
 class funcpic:
     def __init__(self,cmapval='hot',fig=1,fig_contour=1):
@@ -109,49 +110,72 @@ if __name__ == "__main__":
     fig = plt.figure(figsize=(12,7))
     fig_contour = plt.figure(figsize=(12,7))
     # testobj = funcpic('gray',fig)
-    testobj = funcpic('hot',fig,fig_contour)
-    X, Y, Z, z_max, title = testobj.Rastrigin()
-    # testobj.funcPic_3D(X, Y, Z, z_max, title, z_min,331)
-    testobj.funcPic_all(X, Y, Z, z_max, title, z_min,331)
-    X, Y, Z, z_max, title = testobj.Ackley()
-    # testobj.funcPic_3D(X, Y, Z, z_max, title, z_min,332)
-    testobj.funcPic_all(X, Y, Z, z_max, title, z_min,332)
-    X, Y, Z, z_max, title = testobj.Sphere()
-    # testobj.funcPic_3D(X, Y, Z, z_max, title, z_min,333)
-    testobj.funcPic_all(X, Y, Z, z_max, title, z_min,333)
-    X, Y, Z, z_max, title = testobj.Beale()
-    # testobj.funcPic_3D(X, Y, Z, z_max, title, z_min,334)
-    testobj.funcPic_all(X, Y, Z, z_max, title, z_min,334)
-    X, Y, Z, z_max, title = testobj.Booth()
-    # testobj.funcPic_3D(X, Y, Z, z_max, title, z_min,335)
-    testobj.funcPic_all(X, Y, Z, z_max, title, z_min,335)
-    X, Y, Z, z_max, title = testobj.Bukin()
-    # testobj.funcPic_3D(X, Y, Z, z_max, title, z_min,336)
-    testobj.funcPic_all(X, Y, Z, z_max, title, z_min,336)
-    X, Y, Z, z_max, title = testobj.three_humpCamel()
-    # testobj.funcPic_3D(X, Y, Z, z_max, title, z_min,337)
-    testobj.funcPic_all(X, Y, Z, z_max, title, z_min,337)
-    X, Y, Z, z_max, title, z_min = testobj.Holder_table()
-    # testobj.funcPic_3D(X, Y, Z, z_max, title, z_min,338)
-    testobj.funcPic_all(X, Y, Z, z_max, title, z_min,338)
+    # testobj = funcpic('hot',fig,fig_contour)
+    # X, Y, Z, z_max, title = testobj.Rastrigin()
+    # # testobj.funcPic_3D(X, Y, Z, z_max, title, z_min,331)
+    # testobj.funcPic_all(X, Y, Z, z_max, title, z_min,331)
+    # X, Y, Z, z_max, title = testobj.Ackley()
+    # # testobj.funcPic_3D(X, Y, Z, z_max, title, z_min,332)
+    # testobj.funcPic_all(X, Y, Z, z_max, title, z_min,332)
+    # X, Y, Z, z_max, title = testobj.Sphere()
+    # # testobj.funcPic_3D(X, Y, Z, z_max, title, z_min,333)
+    # testobj.funcPic_all(X, Y, Z, z_max, title, z_min,333)
+    # X, Y, Z, z_max, title = testobj.Beale()
+    # # testobj.funcPic_3D(X, Y, Z, z_max, title, z_min,334)
+    # testobj.funcPic_all(X, Y, Z, z_max, title, z_min,334)
+    # X, Y, Z, z_max, title = testobj.Booth()
+    # # testobj.funcPic_3D(X, Y, Z, z_max, title, z_min,335)
+    # testobj.funcPic_all(X, Y, Z, z_max, title, z_min,335)
+    # X, Y, Z, z_max, title = testobj.Bukin()
+    # # testobj.funcPic_3D(X, Y, Z, z_max, title, z_min,336)
+    # testobj.funcPic_all(X, Y, Z, z_max, title, z_min,336)
+    # X, Y, Z, z_max, title = testobj.three_humpCamel()
+    # # testobj.funcPic_3D(X, Y, Z, z_max, title, z_min,337)
+    # testobj.funcPic_all(X, Y, Z, z_max, title, z_min,337)
+    # X, Y, Z, z_max, title, z_min = testobj.Holder_table()
+    # # testobj.funcPic_3D(X, Y, Z, z_max, title, z_min,338)
+    # testobj.funcPic_all(X, Y, Z, z_max, title, z_min,338)
 
-    plt.savefig("%s.jpg" % "result")
-    # 绘制迭代的适应度数据图 初始化部分
-    plt.figure()
+    # plt.savefig("%s.jpg" % "result")
+    # # 绘制迭代的适应度数据图 初始化部分
+    # plt.figure()
+
+    # PSO算法
     psoobj = PSO()
-
+    LWDobj = LWDPSO()
     # 函数名称：(名称由,分开)
     # Rastrigin,Ackley,Sphere,Beale,Booth,Bukin
-    # Three-hump-camel,Holder-Table 
-    labelpara = 'Rastrigin'
-    result,bestpop,pbestfitness = psoobj.run(labelpara)
-    x = np.arange(0,result.size,1)
-    plt.plot(x,-result,c='b',label=labelpara)
+    # Three-hump-camel,Holder-Table
+
+    # labelpara = 'Rastrigin'
+    # result,bestpop,pbestfitness = psoobj.run(labelpara)
+    # x = np.arange(0,result.size,1)
+    # plt.plot(x,-result,'--b',label="PSO")
+
+    # # labelpara = 'Rastrigin'
+    # result,bestpop,pbestfitness = LWDobj.run(labelpara)
+    # x = np.arange(0,result.size,1)
+    # plt.plot(x,-result,'-r',label="LWDPSO")
 
     labelpara = 'Ackley'
-    result2,bestpop,pbestfitness = psoobj.run(labelpara)
-    plt.plot(x,-result2,c='r',label=labelpara)
+    result,bestpop,pbestfitness = psoobj.run(labelpara)
+    x = np.arange(0,result.size,1)
+    plt.plot(x,-result,'x:m',label="PSO")
 
+    result,bestpop,pbestfitness = LWDobj.run(labelpara)
+    x = np.arange(0,result.size,1)
+    plt.plot(x,-result,'d-.y',label="LWDPSO")
+
+    # labelpara = 'Sphere'
+    # result,bestpop,pbestfitness = psoobj.run(labelpara)
+    # x = np.arange(0,result.size,1)
+    # plt.plot(x,-100*result,'o--g',label="PSO")
+
+    # result,bestpop,pbestfitness = LWDobj.run(labelpara)
+    # x = np.arange(0,result.size,1)
+    # plt.plot(x,-100*result,'s-r',label="LWDPSO")
     # 显示模块中图像
     plt.legend()
+    plt.title("Ackley function optimization")
     plt.show()
+
