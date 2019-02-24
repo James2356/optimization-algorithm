@@ -84,7 +84,7 @@ class PSO:
 
     def run(self,fitnessfuncname):
         self.fitnessfuncname = fitnessfuncname
-        w = self.getweight()
+        # w = self.getweight()
         lr = self.getlearningrate()
         maxgen = self.getmaxgen()
         sizepop = self.getsizepop()
@@ -100,7 +100,7 @@ class PSO:
                 t=0.5
                 #速度更新
                 for j in range(sizepop):
-                    v[j] =w*v[j]+lr[0]*np.random.rand()*(pbestpop[j]-pop[j])+lr[1]*np.random.rand()*(gbestpop-pop[j])
+                    v[j] = v[j]+lr[0]*np.random.rand()*(pbestpop[j]-pop[j])+lr[1]*np.random.rand()*(gbestpop-pop[j])
                 v[v<rangespeed[0]] = rangespeed[0]
                 v[v>rangespeed[1]] = rangespeed[1]
 
