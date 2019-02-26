@@ -181,5 +181,6 @@ if __name__ == "__main__":
     plt.title("Rastrigin function optimization")
     plt.xlabel("iterations")
     plt.ylabel("Test Function Value")
+    plt.show()
 
 
