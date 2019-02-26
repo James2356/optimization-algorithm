@@ -3,6 +3,7 @@ import numpy as np
 from funcs import funcs
 
 class funcfactory_singleton(object):
+    # 一种线程安全的单例
     _instance_lock = threading.Lock()
 
     def __init__(self):

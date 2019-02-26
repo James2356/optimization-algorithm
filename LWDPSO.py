@@ -3,7 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 from funcfactory_singleton import funcfactory_singleton
-# from funcfactory import funcfactory
 
 ##
 # PSO算法一些参数说明:

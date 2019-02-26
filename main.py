@@ -1,4 +1,6 @@
 import numpy as np
+import os
+import shutil as st
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from PSO import PSO
@@ -143,28 +145,28 @@ if __name__ == "__main__":
     # PSO算法
     psoobj = PSO()
     LWDobj = LWDPSO()
-    # 函数名称：(名称由,分开)
+    # 函数名称:
     # Rastrigin,Ackley,Sphere,Beale,Booth,Bukin
     # Three-hump-camel,Holder-Table
-
-    # labelpara = 'Rastrigin'
-    # result,bestpop,pbestfitness = psoobj.run(labelpara)
-    # x = np.arange(0,result.size,1)
-    # plt.plot(x,-result,'--b',label="PSO")
-
-    # # labelpara = 'Rastrigin'
-    # result,bestpop,pbestfitness = LWDobj.run(labelpara)
-    # x = np.arange(0,result.size,1)
-    # plt.plot(x,-result,'-r',label="LWDPSO")
-
-    labelpara = 'Ackley'
+    
+    labelpara = 'Rastrigin'
     result,bestpop,pbestfitness = psoobj.run(labelpara)
     x = np.arange(0,result.size,1)
-    plt.plot(x,-result,'x:m',label="PSO")
+    plt.plot(x,-result,'x--b',label="PSO")
 
+    # labelpara = 'Rastrigin'
     result,bestpop,pbestfitness = LWDobj.run(labelpara)
     x = np.arange(0,result.size,1)
-    plt.plot(x,-result,'d-.y',label="LWDPSO")
+    plt.plot(x,-result,'d-r',label="LWDPSO")
+
+    # labelpara = 'Ackley'
+    # result,bestpop,pbestfitness = psoobj.run(labelpara)
+    # x = np.arange(0,result.size,1)
+    # plt.plot(x,-result,'x:m',label="PSO")
+
+    # result,bestpop,pbestfitness = LWDobj.run(labelpara)
+    # x = np.arange(0,result.size,1)
+    # plt.plot(x,-result,'d-.y',label="LWDPSO")
 
     # labelpara = 'Sphere'
     # result,bestpop,pbestfitness = psoobj.run(labelpara)
@@ -174,8 +176,10 @@ if __name__ == "__main__":
     # result,bestpop,pbestfitness = LWDobj.run(labelpara)
     # x = np.arange(0,result.size,1)
     # plt.plot(x,-100*result,'s-r',label="LWDPSO")
-    # 显示模块中图像
+
     plt.legend()
-    plt.title("Ackley function optimization")
-    plt.show()
+    plt.title("Rastrigin function optimization")
+    plt.xlabel("iterations")
+    plt.ylabel("Test Function Value")
+
 
