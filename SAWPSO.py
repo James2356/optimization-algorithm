@@ -1,4 +1,3 @@
-# -*- coding:utf-8 -*-
 import numpy as np
 import matplotlib.pyplot as plt
 import math
@@ -14,24 +13,23 @@ from funcfactory_singleton import funcfactory_singleton
 # fitness 适应度值 PSO算法中规定：适应度越大，当前粒子位置越逼近最优解 
 # 所以目标函数值要取反以求其最大值，即得最优解
 ##
-class LWDPSO:
+class SAWPSO:
     def getweight(self):
         # 惯性权重
         weight = 0.9
         return weight
 
-    def getLWDweight(self,w_min,w_max,i):
-        # LWD权重变化
-        # weight = 
+    def getSAWweight(self,w_min,w_max,i):
+        # SAW权重变化
         itermax = self.getmaxgen()
+        w = w_max - i/itermax*(w_max-w_min)
         k = float(i)/float(itermax)
-        w = w_max -k*(w_max-w_min)
-        # if(w>w_max):
-        #     w = w_max
-        # if(w<w_min):
-        #     w = w_min
+        if(1<=i<=itermax/2):
+            w=-math.pow(k,2)+w_max
+        elif(itermax/2<i<=itermax):
+            w=-math.pow(k-1,2)+w_min
         return w
-
+        
     def getlearningrate(self):
         # 分别是粒子的个体和社会的学习因子，也称为加速常数
         lr = (1.49445,1.49445)
@@ -111,8 +109,9 @@ class LWDPSO:
         # 初始化结果
         result = np.zeros(maxgen)
         for i in range(maxgen):
+            # 压缩因子
             t=0.5
-            w = self.getLWDweight(w_min,w_max,i+1)
+            w = self.getSAWweight(w_min,w_max,i+1)
             #速度更新
             for j in range(sizepop):
                 v[j] =w*v[j]+lr[0]*np.random.rand()*(pbestpop[j]-pop[j])+lr[1]*np.random.rand()*(gbestpop-pop[j])
@@ -140,5 +139,5 @@ class LWDPSO:
                 gbestpop = pop[pbestfitness.argmax()].copy()
 
             result[i] = gbestfitness
-            # w = self.getLWDweight(w_min,w_max,i+1)
+            # w = self.getSAWweight(w_min,w_max,i+1)
         return result,gbestpop,pbestfitness

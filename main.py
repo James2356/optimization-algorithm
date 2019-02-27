@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from PSO import PSO
 from LWDPSO import LWDPSO
+from SAWPSO import SAWPSO
 
 class funcpic:
     def __init__(self,cmapval='hot',fig=1,fig_contour=1):
@@ -145,6 +146,7 @@ if __name__ == "__main__":
     # PSO算法
     psoobj = PSO()
     LWDobj = LWDPSO()
+    SAWobj = SAWPSO()
     # 函数名称:
     # Rastrigin,Ackley,Sphere,Beale,Booth,Bukin
     # Three-hump-camel,Holder-Table
@@ -159,6 +161,9 @@ if __name__ == "__main__":
     x = np.arange(0,result.size,1)
     plt.plot(x,-result,'d-r',label="LWDPSO")
 
+    result,bestpop,pbestfitness = SAWobj.run(labelpara)
+    x = np.arange(0,result.size,1)
+    plt.plot(x,-result,'-.g',label="SAWPSO")
     # labelpara = 'Ackley'
     # result,bestpop,pbestfitness = psoobj.run(labelpara)
     # x = np.arange(0,result.size,1)
