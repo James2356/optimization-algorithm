@@ -111,7 +111,7 @@ if __name__ == "__main__":
     z_min = None
     # 绘制测试函数图像
     fig = plt.figure(figsize=(12,7))
-    fig_contour = plt.figure(figsize=(12,7))
+    # fig_contour = plt.figure(figsize=(12,7))
     # testobj = funcpic('gray',fig)
     # testobj = funcpic('hot',fig,fig_contour)
     # X, Y, Z, z_max, title = testobj.Rastrigin()
@@ -151,6 +151,7 @@ if __name__ == "__main__":
     # Rastrigin,Ackley,Sphere,Beale,Booth,Bukin
     # Three-hump-camel,Holder-Table
     
+    # 绘制三个函数图
     labelpara = 'Rastrigin'
     result,bestpop,pbestfitness = psoobj.run(labelpara)
     x = np.arange(0,result.size,1)
