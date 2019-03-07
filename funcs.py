@@ -1,5 +1,5 @@
 import numpy as np
-
+# 我们定义的函数类 都是二维函数
 class funcs:
     # rastrigin测试函数
     def Rastrigin(self,X,Y):

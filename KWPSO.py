@@ -24,10 +24,10 @@ class KWPSO:
         # weight = 
         itermax = self.getmaxgen()
         w = w_max - i/itermax*(w_max-w_min)
-        # if(w>w_max):
-        #     w = w_max
-        # if(w<w_min):
-        #     w = w_min
+        if(w>w_max):
+            w = w_max
+        if(w<w_min):
+            w = w_min
         return w
         
     def getlearningrate(self):

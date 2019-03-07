@@ -26,10 +26,10 @@ class LWDPSO:
         itermax = self.getmaxgen()
         k = float(i)/float(itermax)
         w = w_max -k*(w_max-w_min)
-        # if(w>w_max):
-        #     w = w_max
-        # if(w<w_min):
-        #     w = w_min
+        if(w>w_max):
+            w = w_max
+        if(w<w_min):
+            w = w_min
         return w
 
     def getlearningrate(self):
@@ -64,9 +64,6 @@ class LWDPSO:
         # y 粒子适应度值
         if (x[0]==0)&(x[1]==0):
             y = np.exp((np.cos(2*np.pi*x[0])+np.cos(2*np.pi*x[1]))/2)-2.71289
-        # else:
-        #     y = np.sin(np.sqrt(x[0]**2+x[1]**2))/np.sqrt(x[0]**2+x[1]**2)+np.exp((np.cos(2*np.pi*x[0])+np.cos(2*np.pi*x[1]))/2)-2.71289
-        # return y
         else:
             factory = funcfactory_singleton()
             # factory = funcfactory()
@@ -116,15 +113,20 @@ class LWDPSO:
             #速度更新
             for j in range(sizepop):
                 v[j] =w*v[j]+lr[0]*np.random.rand()*(pbestpop[j]-pop[j])+lr[1]*np.random.rand()*(gbestpop-pop[j])
-            v[v<rangespeed[0]] = rangespeed[0]
-            v[v>rangespeed[1]] = rangespeed[1]
+            # v[v<rangespeed[0]] = rangespeed[0]
+            # v[v>rangespeed[1]] = rangespeed[1]
+            np.putmask(v,v<rangespeed[0],rangespeed[0])
+            np.putmask(v,v>rangespeed[1],rangespeed[1])
+            
 
             #粒子位置更新
             for j in range(sizepop):
                 #pop[j] += 0.5*v[j]
                 pop[j] = t*(0.5*v[j])+(1-t)*pop[j]
-            pop[pop<rangepop[0]] = rangepop[0]
-            pop[pop>rangepop[1]] = rangepop[1]
+            # pop[pop<rangepop[0]] = rangepop[0]
+            # pop[pop>rangepop[1]] = rangepop[1]
+            np.putmask(pop,pop<rangepop[0],rangepop[0])
+            np.putmask(pop,pop>rangepop[1],rangepop[1])
 
             #适应度更新
             for j in range(sizepop):

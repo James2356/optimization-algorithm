@@ -57,9 +57,6 @@ class RWPSO:
         # y 粒子适应度值
         if (x[0]==0)&(x[1]==0):
             y = np.exp((np.cos(2*np.pi*x[0])+np.cos(2*np.pi*x[1]))/2)-2.71289
-        # else:
-        #     y = np.sin(np.sqrt(x[0]**2+x[1]**2))/np.sqrt(x[0]**2+x[1]**2)+np.exp((np.cos(2*np.pi*x[0])+np.cos(2*np.pi*x[1]))/2)-2.71289
-        # return y
         else:
             factory = funcfactory_singleton()
             # factory = funcfactory()
