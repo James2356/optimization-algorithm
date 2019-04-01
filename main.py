@@ -196,7 +196,7 @@ if __name__ == "__main__":
     plt.ylabel("Test Function Value")
 
     plt.figure()
-    labelpara = 'Sphere'
+    labelpara = 'Beale'
     result,bestpop,pbestfitness = psoobj.run(labelpara)
     x = np.arange(0,result.size,1)
     plt.plot(x,-result,'x--b',label="PSO")

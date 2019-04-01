@@ -28,7 +28,7 @@ class PSO:
 
     def getmaxgen(self):
         # 最大迭代次数
-        maxgen = 20
+        maxgen = 25
         return maxgen
 
     def getsizepop(self):
@@ -36,7 +36,7 @@ class PSO:
         sizepop = 20
         return sizepop
 
-    def getrangepop(self,min=-10.0,max=10.0):
+    def getrangepop(self,min=-100.0,max=100.0):
         # 粒子的位置的范围限制,x、y方向的限制相同
         # self.rangepop = (-2*math.pi , 2*math.pi)
         self.rangepop = (min,max)
@@ -109,7 +109,7 @@ class PSO:
                 #粒子位置更新
                 for j in range(sizepop):
                     #pop[j] += 0.5*v[j]
-                    pop[j] = t*(0.5*v[j])+(1-t)*pop[j]
+                    pop[j] = t*v[j]+(1-t)*pop[j]
                 # pop[pop<rangepop[0]] = rangepop[0]
                 # pop[pop>rangepop[1]] = rangepop[1]
                 np.putmask(pop,pop<rangepop[0],rangepop[0])
